@@ -1,17 +1,17 @@
-import { renderGlossary } from './renderer.js';
-import { renderPrompts } from './renderer.js';
+import { renderGlossary } from '/ai-fluency/flowith/renderer.js';
+import { renderPrompts } from '/ai-fluency/flowith/renderer.js';
 
 const routes = {
-    '#introduction': './pages/introduction.html',
-    '#core_principles': './pages/core_principles.html',
-    '#4d_framework': './pages/4d_framework.html',
-    '#delegation': './pages/delegation.html',
-    '#description': './pages/description.html',
-    '#discernment': './pages/discernment.html',
-    '#diligence': './pages/diligence.html',
-    '#use_cases': './pages/use_cases_korea.html',
-    '#prompt_library': './pages/prompt_library.html',
-    '#glossary': './pages/glossary.html',
+    '#introduction': '/ai-fluency/flowith/pages/introduction.html',
+    '#core_principles': '/ai-fluency/flowith/pages/core_principles.html',
+    '#4d_framework': '/ai-fluency/flowith/pages/4d_framework.html',
+    '#delegation': '/ai-fluency/flowith/pages/delegation.html',
+    '#description': '/ai-fluency/flowith/pages/description.html',
+    '#discernment': '/ai-fluency/flowith/pages/discernment.html',
+    '#diligence': '/ai-fluency/flowith/pages/diligence.html',
+    '#use_cases': '/ai-fluency/flowith/pages/use_cases_korea.html',
+    '#prompt_library': '/ai-fluency/flowith/pages/prompt_library.html',
+    '#glossary': '/ai-fluency/flowith/pages/glossary.html',
 };
 
 async function loadContent(path) {
