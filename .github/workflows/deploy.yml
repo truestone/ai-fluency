@@ -33,22 +33,161 @@ jobs:
           cd AI_Fluency_Replit
           npm run build
 
-      # Create final structure
+      # Create final structure - SIMPLIFIED APPROACH
       - name: Create Final Structure
         run: |
           # Create base directory
           mkdir -p build
           
-          # Create landing page
-          cp index.html build/
+          # Copy Flowith app directly to root
+          cp -r AI_Fluency_Flowith/* build/
           
-          # Copy React app to /react directory
-          mkdir -p build/react
-          cp -r AI_Fluency_Replit/dist/* build/react/
+          # Copy React app build to root (will overwrite index.html)
+          cp -r AI_Fluency_Replit/dist/* build/
           
-          # Copy Flowith app to /flowith directory
-          mkdir -p build/flowith
-          cp -r AI_Fluency_Flowith/* build/flowith/
+          # Create custom index.html in root
+          cat > build/index.html << 'EOL'
+          <!DOCTYPE html>
+          <html lang="ko">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>AI Fluency Guide</title>
+              <style>
+                  body {
+                      font-family: 'Noto Sans KR', sans-serif;
+                      background-color: #f8fafc;
+                      color: #334155;
+                      margin: 0;
+                      padding: 0;
+                      display: flex;
+                      flex-direction: column;
+                      min-height: 100vh;
+                      align-items: center;
+                      justify-content: center;
+                  }
+                  .container {
+                      max-width: 800px;
+                      margin: 0 auto;
+                      padding: 2rem;
+                      text-align: center;
+                  }
+                  h1 {
+                      color: #0f172a;
+                      margin-bottom: 2rem;
+                  }
+                  .cards {
+                      display: flex;
+                      gap: 2rem;
+                      justify-content: center;
+                      flex-wrap: wrap;
+                  }
+                  .card {
+                      background-color: white;
+                      border-radius: 0.5rem;
+                      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                      padding: 2rem;
+                      width: 300px;
+                      transition: transform 0.2s, box-shadow 0.2s;
+                  }
+                  .card:hover {
+                      transform: translateY(-5px);
+                      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+                  }
+                  .card h2 {
+                      color: #0f172a;
+                      margin-top: 0;
+                  }
+                  .card p {
+                      color: #64748b;
+                      margin-bottom: 1.5rem;
+                  }
+                  .btn {
+                      display: inline-block;
+                      background-color: #3b82f6;
+                      color: white;
+                      padding: 0.75rem 1.5rem;
+                      border-radius: 0.375rem;
+                      text-decoration: none;
+                      font-weight: 500;
+                      transition: background-color 0.2s;
+                  }
+                  .btn:hover {
+                      background-color: #2563eb;
+                  }
+                  footer {
+                      margin-top: 4rem;
+                      color: #64748b;
+                      font-size: 0.875rem;
+                  }
+              </style>
+              <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+          </head>
+          <body>
+              <div class="container">
+                  <h1>AI Fluency 가이드</h1>
+                  
+                  <div class="cards">
+                      <div class="card">
+                          <h2>Flowith 버전</h2>
+                          <p>HTML, CSS, JavaScript로 구현된 AI Fluency 가이드입니다.</p>
+                          <a href="flowith.html" class="btn">보러가기</a>
+                      </div>
+                      
+                      <div class="card">
+                          <h2>React 버전</h2>
+                          <p>React와 Tailwind CSS로 구현된 AI Fluency 가이드입니다.</p>
+                          <a href="react.html" class="btn">보러가기</a>
+                      </div>
+                  </div>
+                  
+                  <footer>
+                      <p>&copy; 2025 AI Fluency Interactive Guide. All rights reserved.</p>
+                      <p>원작자: Anthropic (https://www.anthropic.com/ai-fluency)</p>
+                      <p>라이선스: CC BY-NC-SA 4.0</p>
+                  </footer>
+              </div>
+          </body>
+          </html>
+          EOL
+          
+          # Create flowith.html that redirects to AI_Fluency_Flowith/index.html
+          cat > build/flowith.html << 'EOL'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <meta charset="UTF-8">
+              <title>Redirecting...</title>
+              <script>
+                  window.location.href = "AI_Fluency_Flowith/index.html";
+              </script>
+          </head>
+          <body>
+              <p>Redirecting to <a href="AI_Fluency_Flowith/index.html">Flowith version</a>...</p>
+          </body>
+          </html>
+          EOL
+          
+          # Create react.html that redirects to React app
+          cat > build/react.html << 'EOL'
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <meta charset="UTF-8">
+              <title>Redirecting...</title>
+              <script>
+                  window.location.href = "index.html";
+              </script>
+          </head>
+          <body>
+              <p>Redirecting to <a href="index.html">React version</a>...</p>
+          </body>
+          </html>
+          EOL
+          
+          # Copy AI_Fluency_Flowith to a subdirectory
+          mkdir -p build/AI_Fluency_Flowith
+          cp -r AI_Fluency_Flowith/* build/AI_Fluency_Flowith/
           
           # Create .nojekyll file
           touch build/.nojekyll
@@ -56,10 +195,8 @@ jobs:
           # Debug: List directory contents
           echo "Contents of build directory:"
           ls -la build/
-          echo "Contents of build/react directory:"
-          ls -la build/react/
-          echo "Contents of build/flowith directory:"
-          ls -la build/flowith/
+          echo "Contents of build/AI_Fluency_Flowith directory:"
+          ls -la build/AI_Fluency_Flowith/
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
