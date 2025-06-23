@@ -19,12 +19,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: 'AI_Fluency_Replit/package-lock.json'
 
-      # React Project Build
+      # React Project Build with caching
       - name: Install Dependencies for React App
         run: |
           cd AI_Fluency_Replit
-          npm install
+          npm ci
 
       - name: Build React App
         run: |
@@ -38,6 +40,10 @@ jobs:
           cp -r AI_Fluency_Replit/dist/* dist/
           mkdir -p dist/flowith
           cp -r AI_Fluency_Flowith/* dist/flowith/
+          # Create .nojekyll file to disable Jekyll processing
+          touch dist/.nojekyll
+          # Create a README file to explain the repository
+          echo "# AI Fluency Guide\n\nThis repository contains the AI Fluency Guide in two versions:\n\n- React version\n- HTML/CSS/JS version (in /flowith directory)" > dist/README.md
 
       # Deploy to GitHub Pages - for project repository
       - name: Deploy to GitHub Pages
