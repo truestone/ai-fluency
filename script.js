@@ -1,6 +1,6 @@
-import { router } from '/ai-fluency/flowith/router.js';
-import { glossaryData } from '/ai-fluency/flowith/data/glossary_data.js';
-import { renderGlossary } from '/ai-fluency/flowith/renderer.js';
+import { router } from './router.js';
+import { glossaryData } from './data/glossary_data.js';
+import { renderGlossary } from './renderer.js';
 
 const quizExplanations = {
     'diligence-ethics-1-a': {

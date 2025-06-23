@@ -1,5 +1,5 @@
-import { glossaryData } from '/ai-fluency/flowith/data/glossary_data.js';
-import { promptsData } from '/ai-fluency/flowith/data/prompts_data.js';
+import { glossaryData } from './data/glossary_data.js';
+import { promptsData } from './data/prompts_data.js';
 
 function renderGlossary() {
     const container = document.getElementById('glossary-container');
