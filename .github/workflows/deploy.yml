@@ -22,7 +22,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'AI_Fluency_Replit/package-lock.json'
 
-      # React Project Build with caching
+      # Build React App
       - name: Install Dependencies for React App
         run: |
           cd AI_Fluency_Replit
@@ -33,38 +33,38 @@ jobs:
           cd AI_Fluency_Replit
           npm run build
 
-      # Prepare Static Files
-      - name: Prepare Static Files
+      # Create final structure
+      - name: Create Final Structure
         run: |
-          # Create dist directory
-          mkdir -p dist
+          # Create base directory
+          mkdir -p build
           
-          # Copy React app files
-          cp -r AI_Fluency_Replit/dist/* dist/
+          # Create landing page
+          cp index.html build/
           
-          # Create flowith directory and copy files
-          mkdir -p dist/flowith
-          cp -r AI_Fluency_Flowith/* dist/flowith/
+          # Copy React app to /react directory
+          mkdir -p build/react
+          cp -r AI_Fluency_Replit/dist/* build/react/
           
-          # Create landing page in dist directory
-          cp index.html dist/
+          # Copy Flowith app to /flowith directory
+          mkdir -p build/flowith
+          cp -r AI_Fluency_Flowith/* build/flowith/
           
-          # Create .nojekyll file to disable Jekyll processing
-          touch dist/.nojekyll
+          # Create .nojekyll file
+          touch build/.nojekyll
           
-          # Debug: List contents of dist directory
-          echo "Contents of dist directory:"
-          ls -la dist/
-          echo "Contents of dist/flowith directory:"
-          ls -la dist/flowith/
-          
-          # Create a README file to explain the repository
-          echo "# AI Fluency Guide\n\nThis repository contains the AI Fluency Guide in two versions:\n\n- React version\n- HTML/CSS/JS version (in /flowith directory)" > dist/README.md
+          # Debug: List directory contents
+          echo "Contents of build directory:"
+          ls -la build/
+          echo "Contents of build/react directory:"
+          ls -la build/react/
+          echo "Contents of build/flowith directory:"
+          ls -la build/flowith/
 
-      # Deploy to GitHub Pages - for project repository
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist
+          folder: build
           branch: gh-pages
           clean: true

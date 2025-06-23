@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     runtimeErrorOverlay(),
   ],
-  base: process.env.NODE_ENV === 'production' ? '/' : '/', // Set base path for GitHub Pages
+  base: process.env.NODE_ENV === 'production' ? '/ai-fluency/react/' : '/', // Set base path for GitHub Pages
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
