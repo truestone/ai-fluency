@@ -2,16 +2,16 @@ import { renderGlossary } from './renderer.js';
 import { renderPrompts } from './renderer.js';
 
 const routes = {
-    '#introduction': 'pages/introduction.html',
-    '#core_principles': 'pages/core_principles.html',
-    '#4d_framework': 'pages/4d_framework.html',
-    '#delegation': 'pages/delegation.html',
-    '#description': 'pages/description.html',
-    '#discernment': 'pages/discernment.html',
-    '#diligence': 'pages/diligence.html',
-    '#use_cases': 'pages/use_cases_korea.html',
-    '#prompt_library': 'pages/prompt_library.html',
-    '#glossary': 'pages/glossary.html',
+    '#introduction': './pages/introduction.html',
+    '#core_principles': './pages/core_principles.html',
+    '#4d_framework': './pages/4d_framework.html',
+    '#delegation': './pages/delegation.html',
+    '#description': './pages/description.html',
+    '#discernment': './pages/discernment.html',
+    '#diligence': './pages/diligence.html',
+    '#use_cases': './pages/use_cases_korea.html',
+    '#prompt_library': './pages/prompt_library.html',
+    '#glossary': './pages/glossary.html',
 };
 
 async function loadContent(path) {
