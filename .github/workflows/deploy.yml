@@ -33,14 +33,21 @@ jobs:
           cd AI_Fluency_Replit
           npm run build
 
-      # Create final structure - SIMPLIFIED APPROACH
+      # Create final structure - SUPER SIMPLIFIED APPROACH
       - name: Create Final Structure
         run: |
           # Create base directory
           mkdir -p build
           
-          # Create landing page in root
-          cat > build/index.html << 'EOL'
+          # Copy React app to root
+          cp -r AI_Fluency_Replit/dist/* build/
+          
+          # Copy Flowith app to flowith directory
+          mkdir -p build/flowith
+          cp -r AI_Fluency_Flowith/* build/flowith/
+          
+          # Create custom landing page
+          cat > build/landing.html << 'EOL'
           <!DOCTYPE html>
           <html lang="ko">
           <head>
@@ -125,13 +132,13 @@ jobs:
                       <div class="card">
                           <h2>Flowith 버전</h2>
                           <p>HTML, CSS, JavaScript로 구현된 AI Fluency 가이드입니다.</p>
-                          <a href="flowith/" class="btn">보러가기</a>
+                          <a href="flowith/index.html" class="btn">보러가기</a>
                       </div>
                       
                       <div class="card">
                           <h2>React 버전</h2>
                           <p>React와 Tailwind CSS로 구현된 AI Fluency 가이드입니다.</p>
-                          <a href="react/" class="btn">보러가기</a>
+                          <a href="index.html" class="btn">보러가기</a>
                       </div>
                   </div>
                   
@@ -145,50 +152,6 @@ jobs:
           </html>
           EOL
           
-          # Copy Flowith app to flowith directory
-          mkdir -p build/flowith
-          cp -r AI_Fluency_Flowith/* build/flowith/
-          
-          # Copy React app to react directory
-          mkdir -p build/react
-          cp -r AI_Fluency_Replit/dist/* build/react/
-          
-          # Create a 404.html file for SPA routing
-          cat > build/404.html << 'EOL'
-          <!DOCTYPE html>
-          <html>
-          <head>
-              <meta charset="utf-8">
-              <title>Redirecting...</title>
-              <script>
-                  // Single Page Apps for GitHub Pages
-                  // MIT License
-                  // https://github.com/rafgraph/spa-github-pages
-                  (function(l) {
-                      if (l.search[1] === '/' ) {
-                          var decoded = l.search.slice(1).split('&').map(function(s) { 
-                              return s.replace(/~and~/g, '&')
-                          }).join('?');
-                          window.history.replaceState(null, null,
-                              l.pathname.slice(0, -1) + decoded + l.hash
-                          );
-                      }
-                  }(window.location))
-              </script>
-          </head>
-          <body>
-              <h1>Page not found</h1>
-              <p>The page you're looking for doesn't exist.</p>
-              <p>You will be redirected to the <a href="/ai-fluency/">home page</a> shortly...</p>
-              <script>
-                  setTimeout(function() {
-                      window.location.href = '/ai-fluency/';
-                  }, 2000);
-              </script>
-          </body>
-          </html>
-          EOL
-          
           # Create .nojekyll file
           touch build/.nojekyll
           
@@ -197,8 +160,6 @@ jobs:
           ls -la build/
           echo "Contents of build/flowith directory:"
           ls -la build/flowith/
-          echo "Contents of build/react directory:"
-          ls -la build/react/
 
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
